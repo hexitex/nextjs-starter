@@ -5,7 +5,15 @@ import React, { useState, useEffect } from 'react';
 import { projects } from '../utils/projectsData';
 
 const [data, setData] = useState('');
-const Home = () => (
+function Home (){
+  
+  useEffect=(() => {
+    (async function () {
+      const { text } = await( await fetch(`/api/message`)).json();
+      setData(text);
+    })();
+  });
+return (
   <div className="home">
     <h1>What Can I Deploy to Static Apps?</h1>
     <div className="card-grid">
@@ -18,16 +26,9 @@ const Home = () => (
     </div>
     
   </div>
-);
+)
+    };
 
 
-
-
-  useEffect=(() => {
-    (async function () {
-      const { text } = await( await fetch(`/api/message`)).json();
-      setData(text);
-    })();
-  });
 
 export default Home;
