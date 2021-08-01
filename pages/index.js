@@ -3,32 +3,30 @@ import { projectIcons } from '../components/Icons';
 import React, { useState, useEffect } from 'react';
 
 import { projects } from '../utils/projectsData';
-
+const [data, setData] = useState('');
 const Home = () => (
   <div className="home">
     <h1>What Can I Deploy to Static Apps?</h1>
     <div className="card-grid">
       {projects.map((project) => {
+        useEffect();
         const Icon = projectIcons[project.id];
     
-        return <SmallCard key={project.id} Icon={Icon} title={project.name +' '+App()} slug={project.slug} />;
+        return <SmallCard key={project.id} Icon={Icon} title={project.name +' '+ data} slug={project.slug} />;
       })}
     </div>
     
   </div>
 );
 
-function App() {
-  const [data, setData] = useState('');
 
-  useEffect(() => {
+
+
+  const useEffect=(() => {
     (async function () {
       const { text } = await( await fetch(`/api/message`)).json();
       setData(text);
     })();
   });
-
-  return <div>{data}</div>;
-}
 
 export default Home;
